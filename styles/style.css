@@ -1,0 +1,73 @@
+/*
+flip card
+*/
+body {
+    background-color: #000000;
+    background-image: url('../assets/bookcase-background.jpg');
+}
+.logo {
+    height: 100px;
+    width: 100px;
+}
+.logo-text {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.bg-custom {
+    background-color: rgba(10, 10, 10, .75);
+}
+
+.bg-custom-2 {
+    background-color: rgb(139, 104, 64);
+    border-radius: 0px 0px 5px 5px;
+}
+
+.bg-custom-3 {
+    color: rgb(167, 125, 77);
+    background-color: rgb(71, 54, 34);
+    border: black, solid, 1px;
+    border-radius: 0px 5px 5px 0px;
+}
+
+.card-flip {
+
+    perspective: 1000px;
+}
+.book-cover {
+    border-radius: 5px 5px 5px 5px;
+}
+.book-detail {
+    height: 100px;
+}
+.card-flip>div {
+    border-radius: 5px 5px 5px 5px;
+    backface-visibility: hidden;
+    transition: transform 400ms;
+    transition-timing-function: linear;
+    width: 100%;
+    height: 100;
+    margin: 0;
+    display: flex;
+    transform-style: preserve-3d;
+}
+
+.card-title {
+    font-size: 1.5em;
+}
+
+.card-front {
+    transform: rotateY(0deg);
+}
+
+.card-back {
+    transform: rotateY(180deg);
+    position: absolute;
+    top: 0;
+}
+
+.card-flip:hover .card-front {
+    transform: rotateY(-180deg);
+}
+
+.card-flip:hover .card-back {
+    transform: rotateY(0deg);
+}
