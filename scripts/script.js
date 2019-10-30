@@ -5,6 +5,7 @@ const vueApp = new Vue({
         fullLanguagesList: [],
         filteredBookList: [],
     },
+
     methods: {
         callJSON: function () {
             fetch("https://api.myjson.com/bins/zyv02", {
@@ -17,8 +18,8 @@ const vueApp = new Vue({
                     }
                 })
                 .then(function (bookData) {
-                    this.fullBookList = bookData.books;
-                    this.filteredBookList = bookData.books;
+                    this.fullBookList = bookData.books.sort((a, b) => (a.title > b.title) ? 1 : -1);
+                    this.filteredBookList =  this.fullBookList;
                     vueApp.fillLanguagesList(this.fullBookList);
                     vueApp.masterBookFilter(this.fullBookList)
                 })
@@ -26,8 +27,8 @@ const vueApp = new Vue({
         fillLanguagesList: function (books) {
             languages = [];
             for (let i = 0; i < books.length; i++) {
-                if (languages.includes(books[i].language) === false) {
-                    languages.push(books[i].language);
+                if (languages.includes(books[i].language.toUpperCase()) === false) {
+                    languages.push(books[i].language.toUpperCase());
                 }
             }
             this.fullLanguagesList = languages
@@ -43,7 +44,7 @@ const vueApp = new Vue({
                 if (selector.value == "All") {
                     selectedBooks = books;
                 } else {
-                    selectedBooks = books.filter(book => book.language.includes(selector.value));
+                    selectedBooks = books.filter(book => book.language.toUpperCase().includes(selector.value));
                 }
                 vueApp.updateFilteredList(selectedBooks, searchedBooks);
             });
@@ -59,7 +60,6 @@ const vueApp = new Vue({
         },
         updateFilteredList: function (selected, searched) {
             vueApp.filteredBookList = selected.filter(book => searched.includes(book));
-            console.log(vueApp.filteredBookList);
         },
     },
 
